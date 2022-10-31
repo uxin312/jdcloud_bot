@@ -39,6 +39,16 @@ class JDCloud_Bot(object):
     def __analysis_data(self, response):
         """
         分析response数据，获取日期和积分
+        details_income为Markdown格式：
+        |Name|Income|
+        |-:|:-|
+        |Ding-Ys-3|254|
+        |102-Ydn_4A6662-old|185|
+        |102-Ydn_4A6BE4-new|99|
+        |102-Luban-1|48|
+        |102-Luban-2|41|
+        |Ding-Luban-1|8|
+
         """
 
         # 取出响应内容中 "result" 字段的值
@@ -52,7 +62,7 @@ class JDCloud_Bot(object):
         point_infos = result['result']['pointInfos']
 
         sum_income = 0
-        details_income = ''
+        details_income = '|Name|Income|\n|-:|:-|'
         for info in point_infos:
             device_id = info['mac']
             point_income = info['todayPointIncome']
@@ -64,8 +74,8 @@ class JDCloud_Bot(object):
 
             sum_income += point_income
             # markdown语法，输入'- '即可输出列表样式
-            details_income = details_income + '\n - ' + \
-                device_name + ':' + str(point_income)
+            details_income = details_income + '\n|' + \
+                device_name + '|' + str(point_income) + '|'
 
         # 获取今天的日期
         today_date = result['result']['todayDate']
