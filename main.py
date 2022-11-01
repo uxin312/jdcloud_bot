@@ -62,7 +62,7 @@ class JDCloud_Bot(object):
         point_infos = result['result']['pointInfos']
 
         sum_income = 0
-        details_income = '|Name|Income|\n|-:|:-|'
+        details_income = '|Name|Income|\n|:-|:-:|'
         for info in point_infos:
             device_id = info['mac']
             point_income = info['todayPointIncome']
